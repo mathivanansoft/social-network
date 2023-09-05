@@ -1,0 +1,33 @@
+version: '3'
+
+networks:
+  social-net:
+    name: social-net
+    driver: bridge
+
+services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ${MYSQL_VOLUME}:/var/lib/mysql
+    networks:
+      - social-net
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: social_network
+
+  social-network:
+    build: .
+    image: social-network
+    container_name: social-network
+    ports:
+      - 8000:8000
+    networks:
+      - social-net
+    env_file:
+      - .env
+    depends_on:
+      - mysql

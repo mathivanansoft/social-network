@@ -17,3 +17,12 @@
 
 ## Usage
 docker-compose automatically runs the migration and starts the sever in port 8000
+
+## Steps
+1. Signup
+2. Login
+
+## Authentication
+Token based authentication is used. After login, token is added in each request headers in the form 
+
+    Authorization: Token {{token}}
